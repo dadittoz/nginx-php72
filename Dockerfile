@@ -36,7 +36,7 @@ RUN apt-get install -y php${PHP_VERSION}-cli php${PHP_VERSION}-curl php${PHP_VER
 #php-mcrypt
 RUN pecl channel-update pecl.php.net
 RUN sed -i '639s/.*/$v_att_list = func_get_args();/' /usr/share/php/Archive/Tar.php
-RUN pear install Archive_Tar
+#RUN pear install Archive_Tar
 RUN pecl install mcrypt-1.0.1
 RUN echo "extension=mcrypt.so" > /etc/php/${PHP_VERSION}/mods-available/mcrypt.ini
 RUN ln -s /etc/php/${PHP_VERSION}/mods-available/mcrypt.ini /etc/php/${PHP_VERSION}/fpm/conf.d/20-mcrypt.ini
