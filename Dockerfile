@@ -56,7 +56,8 @@ RUN rm -rf /etc/nginx/*.d && \
 RUN mkdir /config /data
 ADD config /config
 ADD etc /etc
-RUN envsubst < /etc/php-fpm/php-fpm.conf | tee /etc/php-fpm/php-fpm.conf
+RUN envsubst < /etc/php-fpm/php-fpm.conf | tee /etc/php-fpm/php-fpm.conf.new
+RUN mv /etc/php-fpm/php-fpm.conf.new /etc/php-fpm/php-fpm.conf
 RUN rm -rf /etc/php/${PHP_VERSION}/fpm/pool.d
 RUN cp -rp /etc/php-fpm/* /etc/php/${PHP_VERSION}/fpm
 RUN rm -rf /etc/php-fpm
@@ -70,7 +71,8 @@ RUN curl https://www.cloudflare.com/ips-v6 | awk '{print "set_real_ip_from " $0 
 
 # --------------
 # supervisor:config
-RUN envsubst < /etc/supervisor/conf.d/base-services.conf | tee /etc/supervisor/conf.d/base-services.conf
+RUN envsubst < /etc/supervisor/conf.d/base-services.conf | tee /etc/supervisor/conf.d/base-services.conf.new
+RUN mv /etc/supervisor/conf.d/base-services.conf.new /etc/supervisor/conf.d/base-services.conf
 
 
 # --------------
